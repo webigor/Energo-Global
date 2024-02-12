@@ -1,0 +1,569 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="energo_globalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BrojFaza">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Broj faza" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Korak">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProjekat" Type="int" Nullable="false" />
+          <Property Name="Korak" Type="int" Nullable="false" />
+          <Property Name="Oprema" Type="nvarchar" MaxLength="800" />
+          <Property Name="IdTipPotrosaca" Type="int" Nullable="false" />
+          <Property Name="IdBrojFaza" Type="int" Nullable="false" />
+          <Property Name="Kolicina" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Snaga" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Start P.F" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="URadu P.F" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Faktor" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IdStartMotora" Type="int" Nullable="false" />
+          <Property Name="Start A" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Start KVA" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Start KW" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Rad KVA" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Rad KW" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Rad A" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Projekat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv projekta" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="Datum izrade" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdProjektant" Type="int" />
+          <Property Name="Ime projektanta" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'energo_global.dbo.ProjekatKorakUkupno' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProjekatKorakUkupno">
+          <Key>
+            <PropertyRef Name="IdProjekat" />
+            <PropertyRef Name="IdKorak" />
+            <PropertyRef Name="StartA_Ukupno" />
+            <PropertyRef Name="StartKVA_Ukupno" />
+            <PropertyRef Name="StartKW_Ukupno" />
+            <PropertyRef Name="RadKVA_Ukupno" />
+            <PropertyRef Name="RadKW_Ukupno" />
+            <PropertyRef Name="RadA_Ukupno" />
+          </Key>
+          <Property Name="IdProjekat" Type="int" Nullable="false" />
+          <Property Name="IdKorak" Type="int" Nullable="false" />
+          <Property Name="StartA_Ukupno" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="StartKVA_Ukupno" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="StartKW_Ukupno" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="RadKVA_Ukupno" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="RadKW_Ukupno" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="RadA_Ukupno" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Projektant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Prezime" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Šifra" Type="nvarchar" MaxLength="150" />
+          <Property Name="Kompanija" Type="nvarchar" MaxLength="150" />
+          <Property Name="Broj telefona" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="StartMotora">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Tip starta motora" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipPotrosaca">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tip potrošaca" Type="nvarchar" MaxLength="80" />
+        </EntityType>
+        <Association Name="FK_Korak_BrojFaza">
+          <End Role="BrojFaza" Type="Self.BrojFaza" Multiplicity="1" />
+          <End Role="Korak" Type="Self.Korak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BrojFaza">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Korak">
+              <PropertyRef Name="IdBrojFaza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korak_Projekat">
+          <End Role="Projekat" Type="Self.Projekat" Multiplicity="1" />
+          <End Role="Korak" Type="Self.Korak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projekat">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Korak">
+              <PropertyRef Name="IdProjekat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korak_StartMotora">
+          <End Role="StartMotora" Type="Self.StartMotora" Multiplicity="1" />
+          <End Role="Korak" Type="Self.Korak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StartMotora">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Korak">
+              <PropertyRef Name="IdStartMotora" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korak_TipPotrosaca">
+          <End Role="TipPotrosaca" Type="Self.TipPotrosaca" Multiplicity="1" />
+          <End Role="Korak" Type="Self.Korak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipPotrosaca">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Korak">
+              <PropertyRef Name="IdTipPotrosaca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projekat_Projektant">
+          <End Role="Projektant" Type="Self.Projektant" Multiplicity="0..1" />
+          <End Role="Projekat" Type="Self.Projekat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projektant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projekat">
+              <PropertyRef Name="IdProjektant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjekatKorakUkupno_Korak">
+          <End Role="Korak" Type="Self.Korak" Multiplicity="1" />
+          <End Role="ProjekatKorakUkupno" Type="Self.ProjekatKorakUkupno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korak">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjekatKorakUkupno">
+              <PropertyRef Name="IdKorak" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjekatKorakUkupno_Projekat">
+          <End Role="Projekat" Type="Self.Projekat" Multiplicity="1" />
+          <End Role="ProjekatKorakUkupno" Type="Self.ProjekatKorakUkupno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projekat">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjekatKorakUkupno">
+              <PropertyRef Name="IdProjekat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="energo_globalModelStoreContainer">
+          <EntitySet Name="BrojFaza" EntityType="Self.BrojFaza" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Korak" EntityType="Self.Korak" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projekat" EntityType="Self.Projekat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projektant" EntityType="Self.Projektant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StartMotora" EntityType="Self.StartMotora" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipPotrosaca" EntityType="Self.TipPotrosaca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjekatKorakUkupno" EntityType="Self.ProjekatKorakUkupno" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[ProjekatKorakUkupno].[IdProjekat] AS [IdProjekat], 
+[ProjekatKorakUkupno].[IdKorak] AS [IdKorak], 
+[ProjekatKorakUkupno].[StartA_Ukupno] AS [StartA_Ukupno], 
+[ProjekatKorakUkupno].[StartKVA_Ukupno] AS [StartKVA_Ukupno], 
+[ProjekatKorakUkupno].[StartKW_Ukupno] AS [StartKW_Ukupno], 
+[ProjekatKorakUkupno].[RadKVA_Ukupno] AS [RadKVA_Ukupno], 
+[ProjekatKorakUkupno].[RadKW_Ukupno] AS [RadKW_Ukupno], 
+[ProjekatKorakUkupno].[RadA_Ukupno] AS [RadA_Ukupno]
+FROM [dbo].[ProjekatKorakUkupno] AS [ProjekatKorakUkupno]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Korak_BrojFaza" Association="Self.FK_Korak_BrojFaza">
+            <End Role="BrojFaza" EntitySet="BrojFaza" />
+            <End Role="Korak" EntitySet="Korak" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korak_Projekat" Association="Self.FK_Korak_Projekat">
+            <End Role="Projekat" EntitySet="Projekat" />
+            <End Role="Korak" EntitySet="Korak" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korak_StartMotora" Association="Self.FK_Korak_StartMotora">
+            <End Role="StartMotora" EntitySet="StartMotora" />
+            <End Role="Korak" EntitySet="Korak" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korak_TipPotrosaca" Association="Self.FK_Korak_TipPotrosaca">
+            <End Role="TipPotrosaca" EntitySet="TipPotrosaca" />
+            <End Role="Korak" EntitySet="Korak" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projekat_Projektant" Association="Self.FK_Projekat_Projektant">
+            <End Role="Projektant" EntitySet="Projektant" />
+            <End Role="Projekat" EntitySet="Projekat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjekatKorakUkupno_Korak" Association="Self.FK_ProjekatKorakUkupno_Korak">
+            <End Role="Korak" EntitySet="Korak" />
+            <End Role="ProjekatKorakUkupno" EntitySet="ProjekatKorakUkupno" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjekatKorakUkupno_Projekat" Association="Self.FK_ProjekatKorakUkupno_Projekat">
+            <End Role="Projekat" EntitySet="Projekat" />
+            <End Role="ProjekatKorakUkupno" EntitySet="ProjekatKorakUkupno" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="energo_globalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BrojFaza">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Broj_faza" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Koraks" Relationship="Self.FK_Korak_BrojFaza" FromRole="BrojFaza" ToRole="Korak" />
+        </EntityType>
+        <EntityType Name="Korak">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProjekat" Type="Int32" Nullable="false" />
+          <Property Name="Korak1" Type="Int32" Nullable="false" />
+          <Property Name="Oprema" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+          <Property Name="IdTipPotrosaca" Type="Int32" Nullable="false" />
+          <Property Name="IdBrojFaza" Type="Int32" Nullable="false" />
+          <Property Name="Kolicina" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Snaga" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Start_P_F" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="URadu_P_F" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Faktor" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IdStartMotora" Type="Int32" Nullable="false" />
+          <Property Name="Start_A" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Start_KVA" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Start_KW" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Rad_KVA" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Rad_KW" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Rad_A" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="BrojFaza" Relationship="Self.FK_Korak_BrojFaza" FromRole="Korak" ToRole="BrojFaza" />
+          <NavigationProperty Name="Projekat" Relationship="Self.FK_Korak_Projekat" FromRole="Korak" ToRole="Projekat" />
+          <NavigationProperty Name="StartMotora" Relationship="Self.FK_Korak_StartMotora" FromRole="Korak" ToRole="StartMotora" />
+          <NavigationProperty Name="TipPotrosaca" Relationship="Self.FK_Korak_TipPotrosaca" FromRole="Korak" ToRole="TipPotrosaca" />
+          <NavigationProperty Name="ProjekatKorakUkupnoes" Relationship="Self.FK_ProjekatKorakUkupno_Korak" FromRole="Korak" ToRole="ProjekatKorakUkupno" />
+        </EntityType>
+        <EntityType Name="Projekat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv_projekta" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Datum_izrade" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdProjektant" Type="Int32" />
+          <Property Name="Ime_projektanta" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Koraks" Relationship="Self.FK_Korak_Projekat" FromRole="Projekat" ToRole="Korak" />
+          <NavigationProperty Name="Projektant" Relationship="Self.FK_Projekat_Projektant" FromRole="Projekat" ToRole="Projektant" />
+          <NavigationProperty Name="ProjekatKorakUkupnoes" Relationship="Self.FK_ProjekatKorakUkupno_Projekat" FromRole="Projekat" ToRole="ProjekatKorakUkupno" />
+        </EntityType>
+        <EntityType Name="Projektant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Prezime" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Šifra" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Kompanija" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Broj_telefona" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Projekats" Relationship="Self.FK_Projekat_Projektant" FromRole="Projektant" ToRole="Projekat" />
+        </EntityType>
+        <EntityType Name="StartMotora">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Tip_starta_motora" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Koraks" Relationship="Self.FK_Korak_StartMotora" FromRole="StartMotora" ToRole="Korak" />
+        </EntityType>
+        <EntityType Name="TipPotrosaca">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tip_potrošaca" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Koraks" Relationship="Self.FK_Korak_TipPotrosaca" FromRole="TipPotrosaca" ToRole="Korak" />
+        </EntityType>
+        <EntityType Name="ProjekatKorakUkupno">
+          <Key>
+            <PropertyRef Name="IdProjekat" />
+            <PropertyRef Name="IdKorak" />
+            <PropertyRef Name="StartA_Ukupno" />
+            <PropertyRef Name="StartKVA_Ukupno" />
+            <PropertyRef Name="StartKW_Ukupno" />
+            <PropertyRef Name="RadKVA_Ukupno" />
+            <PropertyRef Name="RadKW_Ukupno" />
+            <PropertyRef Name="RadA_Ukupno" />
+          </Key>
+          <Property Name="IdProjekat" Type="Int32" Nullable="false" />
+          <Property Name="IdKorak" Type="Int32" Nullable="false" />
+          <Property Name="StartA_Ukupno" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="StartKVA_Ukupno" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="StartKW_Ukupno" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="RadKVA_Ukupno" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="RadKW_Ukupno" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="RadA_Ukupno" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Korak" Relationship="Self.FK_ProjekatKorakUkupno_Korak" FromRole="ProjekatKorakUkupno" ToRole="Korak" />
+          <NavigationProperty Name="Projekat" Relationship="Self.FK_ProjekatKorakUkupno_Projekat" FromRole="ProjekatKorakUkupno" ToRole="Projekat" />
+        </EntityType>
+        <Association Name="FK_Korak_BrojFaza">
+          <End Role="BrojFaza" Type="Self.BrojFaza" Multiplicity="1" />
+          <End Role="Korak" Type="Self.Korak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BrojFaza">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Korak">
+              <PropertyRef Name="IdBrojFaza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korak_Projekat">
+          <End Role="Projekat" Type="Self.Projekat" Multiplicity="1" />
+          <End Role="Korak" Type="Self.Korak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projekat">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Korak">
+              <PropertyRef Name="IdProjekat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korak_StartMotora">
+          <End Role="StartMotora" Type="Self.StartMotora" Multiplicity="1" />
+          <End Role="Korak" Type="Self.Korak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StartMotora">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Korak">
+              <PropertyRef Name="IdStartMotora" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korak_TipPotrosaca">
+          <End Role="TipPotrosaca" Type="Self.TipPotrosaca" Multiplicity="1" />
+          <End Role="Korak" Type="Self.Korak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipPotrosaca">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Korak">
+              <PropertyRef Name="IdTipPotrosaca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjekatKorakUkupno_Korak">
+          <End Role="Korak" Type="Self.Korak" Multiplicity="1" />
+          <End Role="ProjekatKorakUkupno" Type="Self.ProjekatKorakUkupno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korak">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjekatKorakUkupno">
+              <PropertyRef Name="IdKorak" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projekat_Projektant">
+          <End Role="Projektant" Type="Self.Projektant" Multiplicity="0..1" />
+          <End Role="Projekat" Type="Self.Projekat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projektant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projekat">
+              <PropertyRef Name="IdProjektant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjekatKorakUkupno_Projekat">
+          <End Role="Projekat" Type="Self.Projekat" Multiplicity="1" />
+          <End Role="ProjekatKorakUkupno" Type="Self.ProjekatKorakUkupno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projekat">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjekatKorakUkupno">
+              <PropertyRef Name="IdProjekat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="energo_globalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BrojFazas" EntityType="Self.BrojFaza" />
+          <EntitySet Name="Koraks" EntityType="Self.Korak" />
+          <EntitySet Name="Projekats" EntityType="Self.Projekat" />
+          <EntitySet Name="Projektants" EntityType="Self.Projektant" />
+          <EntitySet Name="StartMotoras" EntityType="Self.StartMotora" />
+          <EntitySet Name="TipPotrosacas" EntityType="Self.TipPotrosaca" />
+          <EntitySet Name="ProjekatKorakUkupnoes" EntityType="Self.ProjekatKorakUkupno" />
+          <AssociationSet Name="FK_Korak_BrojFaza" Association="Self.FK_Korak_BrojFaza">
+            <End Role="BrojFaza" EntitySet="BrojFazas" />
+            <End Role="Korak" EntitySet="Koraks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korak_Projekat" Association="Self.FK_Korak_Projekat">
+            <End Role="Projekat" EntitySet="Projekats" />
+            <End Role="Korak" EntitySet="Koraks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korak_StartMotora" Association="Self.FK_Korak_StartMotora">
+            <End Role="StartMotora" EntitySet="StartMotoras" />
+            <End Role="Korak" EntitySet="Koraks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korak_TipPotrosaca" Association="Self.FK_Korak_TipPotrosaca">
+            <End Role="TipPotrosaca" EntitySet="TipPotrosacas" />
+            <End Role="Korak" EntitySet="Koraks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjekatKorakUkupno_Korak" Association="Self.FK_ProjekatKorakUkupno_Korak">
+            <End Role="Korak" EntitySet="Koraks" />
+            <End Role="ProjekatKorakUkupno" EntitySet="ProjekatKorakUkupnoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projekat_Projektant" Association="Self.FK_Projekat_Projektant">
+            <End Role="Projektant" EntitySet="Projektants" />
+            <End Role="Projekat" EntitySet="Projekats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjekatKorakUkupno_Projekat" Association="Self.FK_ProjekatKorakUkupno_Projekat">
+            <End Role="Projekat" EntitySet="Projekats" />
+            <End Role="ProjekatKorakUkupno" EntitySet="ProjekatKorakUkupnoes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="energo_globalModelStoreContainer" CdmEntityContainer="energo_globalEntities">
+          <EntitySetMapping Name="BrojFazas">
+            <EntityTypeMapping TypeName="energo_globalModel.BrojFaza">
+              <MappingFragment StoreEntitySet="BrojFaza">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Broj_faza" ColumnName="Broj faza" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Koraks">
+            <EntityTypeMapping TypeName="energo_globalModel.Korak">
+              <MappingFragment StoreEntitySet="Korak">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdProjekat" ColumnName="IdProjekat" />
+                <ScalarProperty Name="Korak1" ColumnName="Korak" />
+                <ScalarProperty Name="Oprema" ColumnName="Oprema" />
+                <ScalarProperty Name="IdTipPotrosaca" ColumnName="IdTipPotrosaca" />
+                <ScalarProperty Name="IdBrojFaza" ColumnName="IdBrojFaza" />
+                <ScalarProperty Name="Kolicina" ColumnName="Kolicina" />
+                <ScalarProperty Name="Snaga" ColumnName="Snaga" />
+                <ScalarProperty Name="Start_P_F" ColumnName="Start P.F" />
+                <ScalarProperty Name="URadu_P_F" ColumnName="URadu P.F" />
+                <ScalarProperty Name="Faktor" ColumnName="Faktor" />
+                <ScalarProperty Name="IdStartMotora" ColumnName="IdStartMotora" />
+                <ScalarProperty Name="Start_A" ColumnName="Start A" />
+                <ScalarProperty Name="Start_KVA" ColumnName="Start KVA" />
+                <ScalarProperty Name="Start_KW" ColumnName="Start KW" />
+                <ScalarProperty Name="Rad_KVA" ColumnName="Rad KVA" />
+                <ScalarProperty Name="Rad_KW" ColumnName="Rad KW" />
+                <ScalarProperty Name="Rad_A" ColumnName="Rad A" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projekats">
+            <EntityTypeMapping TypeName="energo_globalModel.Projekat">
+              <MappingFragment StoreEntitySet="Projekat">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Naziv_projekta" ColumnName="Naziv projekta" />
+                <ScalarProperty Name="Datum_izrade" ColumnName="Datum izrade" />
+                <ScalarProperty Name="IdProjektant" ColumnName="IdProjektant" />
+                <ScalarProperty Name="Ime_projektanta" ColumnName="Ime projektanta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projektants">
+            <EntityTypeMapping TypeName="energo_globalModel.Projektant">
+              <MappingFragment StoreEntitySet="Projektant">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Šifra" ColumnName="Šifra" />
+                <ScalarProperty Name="Kompanija" ColumnName="Kompanija" />
+                <ScalarProperty Name="Broj_telefona" ColumnName="Broj telefona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StartMotoras">
+            <EntityTypeMapping TypeName="energo_globalModel.StartMotora">
+              <MappingFragment StoreEntitySet="StartMotora">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Tip_starta_motora" ColumnName="Tip starta motora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipPotrosacas">
+            <EntityTypeMapping TypeName="energo_globalModel.TipPotrosaca">
+              <MappingFragment StoreEntitySet="TipPotrosaca">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Tip_potrošaca" ColumnName="Tip potrošaca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjekatKorakUkupnoes">
+            <EntityTypeMapping TypeName="energo_globalModel.ProjekatKorakUkupno">
+              <MappingFragment StoreEntitySet="ProjekatKorakUkupno">
+                <ScalarProperty Name="IdProjekat" ColumnName="IdProjekat" />
+                <ScalarProperty Name="IdKorak" ColumnName="IdKorak" />
+                <ScalarProperty Name="StartA_Ukupno" ColumnName="StartA_Ukupno" />
+                <ScalarProperty Name="StartKVA_Ukupno" ColumnName="StartKVA_Ukupno" />
+                <ScalarProperty Name="StartKW_Ukupno" ColumnName="StartKW_Ukupno" />
+                <ScalarProperty Name="RadKVA_Ukupno" ColumnName="RadKVA_Ukupno" />
+                <ScalarProperty Name="RadKW_Ukupno" ColumnName="RadKW_Ukupno" />
+                <ScalarProperty Name="RadA_Ukupno" ColumnName="RadA_Ukupno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

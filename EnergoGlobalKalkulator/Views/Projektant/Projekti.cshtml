@@ -1,0 +1,82 @@
+﻿@model IEnumerable<EnergoGlobalKalkulator.Models.Projekat>
+
+@{
+    ViewBag.Title = "Projekti";
+}
+
+<script src="~/Scripts/projekat.js"></script>
+
+<section class="wrapper style5">
+    <div class="inner">
+        @if(Model !=null)
+        {
+            <h4>Nemate nijedan projekat</h4>
+        }
+        else
+        {
+            <h4>Lista projekata</h4>
+        }
+      
+
+        <div class="table-wrapper">
+            <table class="alt" id="tblData">
+                <thead>
+                    <tr>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Naziv Projekta</font></font></th>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Datum izrade </font></font></th>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Projektant</font></font></th>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Pogledaj projekat</font></font></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Naziv_projekta</font></font></td>
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Datum_izrade</font></font></td>
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Projektant.Ime @item.Projektant.Prezime</font></font></td>
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><span class="energo"> <a href="/Projektant/Projekat/@item.Id">Pogledaj projekat </a></span></font></font></td>
+                        </tr>
+                    }
+
+
+
+
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+
+        </div>
+
+        <a href="/Projektant/Profil/@ViewBag.Profil" class=" button fit small">Nazad na profil</a>
+
+
+        @*<button onclick="history.back()" >Nazad na projekte</button>*@
+
+
+       
+
+
+    </div>
+    </section>
+
+   
+
+ <script src="//code.jquery.com/jquery-3.7.0.js"></script>
+<script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"> </script>
+
+
+
+<script type="text/javascript">
+
+    new DataTable('#tblData', {
+        order: [[3, 'desc']]
+    });
+
+</script>
+
+
+
+

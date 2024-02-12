@@ -1,0 +1,165 @@
+﻿@model EnergoGlobalKalkulator.Models.User
+
+@{
+    ViewBag.Title = "Registrovanje";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<section class="wrapper style5">
+    <div class="inner">
+        <section>
+            <h4>Unesite Vaše lične podatke za registraciju:</h4>
+         
+
+
+           @using (Html.BeginForm())
+            {
+                  @Html.ValidationSummary(true, "Neuspešna registracija.Ispravite greške i probajte ponovo")
+
+                <div class="row gtr-uniform">
+                    <div class="col-4 col-12-xsmall">
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Ime)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Ime)
+                            @Html.ValidationMessageFor(model => model.Ime)
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row gtr-uniform">
+
+                    <div class="col-4 col-12-xsmall">
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Prezime)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Prezime)
+                            @Html.ValidationMessageFor(model => model.Prezime)
+                        </div>
+                    </div>
+
+
+                    </div>
+             
+               
+               
+               <div class="row gtr-uniform">
+
+                    <div class="col-4 col-12-xsmall">
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Email)
+
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Email)
+                            @Html.ValidationMessageFor(model => model.Email)
+                        </div>
+                    </div>
+
+
+                 </div>
+         
+               //////////////////////////////
+               
+                
+         
+               //////////////////////////////
+               
+               <div class="row gtr-uniform">
+
+                    <div class="col-4 col-12-xsmall">
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Šifra)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Šifra)
+                            @Html.ValidationMessageFor(model => model.Šifra)
+                        </div>
+                    </div>
+
+
+                 </div>
+                //////////////////////////////
+                
+                <div class="row gtr-uniform">
+
+                    <div class="col-4 col-12-xsmall">
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Kompanija)
+
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Kompanija)
+                            @Html.ValidationMessageFor(model => model.Kompanija)
+                        </div>
+                    </div>
+
+
+                 </div>
+                //////////////////////////////
+                
+                <div class="row gtr-uniform">
+
+                    <div class="col-4 col-12-xsmall">
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Broj_telefona)
+
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Broj_telefona)
+                            @Html.ValidationMessageFor(model => model.Broj_telefona)
+                        </div>
+                    </div>
+
+
+                 </div>
+               
+               <div class="row gtr-uniform">
+
+                    <div class="col-4 col-12-xsmall">
+
+                        <input type="submit" value="Registruj se" class="button primary fit">
+
+                    </div>
+
+
+                 </div>  
+                    
+                
+            }
+            
+        </section>
+
+        </div>
+
+    </section>
+
+
+
+
+
+
+
+<script src="~/Scripts/jquery-1.8.2.js"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+
+
+
+
+
+
+

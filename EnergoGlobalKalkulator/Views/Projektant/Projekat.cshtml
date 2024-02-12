@@ -1,0 +1,288 @@
+﻿@model IEnumerable<EnergoGlobalKalkulator.Models.Korak>
+
+@{
+    ViewBag.Title = "Projekat";
+    
+}
+
+
+
+
+
+<section class="wrapper style5" id="sve" >
+    <div class="inner" >
+        <h4>Projekat: </h4>
+        
+
+        <div class="table-wrapper">
+            <table class="alt">
+                <thead>
+                    <tr>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Koraci</font></font></th>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Oprema </font></font></th>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tip potrošača</font></font></th>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Broj faza</font></font></th>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Količina</font></font></th>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Snaga</font></font></th>
+
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Start P.F</font></font></th>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">U radu P.F</font></font></th>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Faktor</font></font></th>
+
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Start motora</font></font></th>
+
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">Start A</font></font></th>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">Start KVA</font></font></th>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">Start KW</font></font></th>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">Rad KVA</font></font></th>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">Rad KW</font></font></th>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">Rad A</font></font></th>
+
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">Izmeni korak</font></font></th>
+
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Korak1</font></font></td>
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Oprema</font></font></td>
+
+                            @if (item.IdTipPotrosaca == 1)
+                            {
+                                <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Opšta potrošnja</font></font></td>
+                            }
+                            @if (item.IdTipPotrosaca == 2)
+                            {
+                                <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Motor</font></font></td>
+                            }
+
+                            @if (item.IdBrojFaza == 1)
+                            {
+                                <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1</font></font></td>
+                            }
+                            @if (item.IdBrojFaza == 2)
+                            {
+                                <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">3</font></font></td>
+                            }
+
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Kolicina</font></font></td>
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Snaga</font></font></td>
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Start_P_F</font></font></td>
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.URadu_P_F</font></font></td>
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Faktor</font></font></td>
+
+                            @if (item.IdTipPotrosaca == 1)
+                            {
+                                <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Samo za motor</font></font></td>
+                            }
+                            @if (item.IdTipPotrosaca == 2)
+                            {
+                                if (item.IdStartMotora == 1)
+                                {
+                                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Direktan start</font></font></td>
+                                }
+
+                                if (item.IdStartMotora == 2)
+                                {
+                                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Wye Delta</font></font></td>
+                                }
+
+
+                                if (item.IdStartMotora == 3)
+                                {
+                                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Freq.Conv</font></font></td>
+                                }
+
+                            }
+                            
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">@item.Start_A</font></font></td>
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">@item.Start_KVA</font></font></td>
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">@item.Start_KW</font></font></td>
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">@item.Rad_KVA</font></font></td>
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">@item.Rad_KW</font></font></td>
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">@item.Rad_A</font></font></td>
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">
+                            <a href="/Projektant/Izmena_projekta/@item.Id" >Izmeni korak</a>
+                             </font></font></td>
+
+                          
+
+
+
+                        </tr>
+                    }
+
+
+
+
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+
+        <article id="zaExport">
+
+            <h4 id="ukupno" class="button primary fit small ">Ukupna potrošnja</h4>
+            <div class="row" id="ukupnoHeading">
+
+                <div class="col-2-large  col-2-xlarge">
+
+
+                    <h5><span class="numberCircle">1</span>Start A</h5>
+                    <h5>@ViewBag.Start_A</h5>
+
+                </div>
+
+                <div class="col-2-large  col-2-xlarge">
+
+
+                    <h5><span class="numberCircle">2</span>Start KVA</h5>
+                    <h5>@ViewBag.Start_KVA</h5>
+
+                </div>
+
+                <div class="col-2-large  col-2-xlarge">
+
+
+                    <h5><span class="numberCircle">3</span>Start KW</h5>
+                    <h5>@ViewBag.Start_KW</h5>
+
+                </div>
+
+                <div class="col-2-large  col-2-xlarge">
+
+
+                    <h5><span class="numberCircle">4</span>Rad KVA</h5>
+                    <h5>@ViewBag.Rad_KVA</h5>
+
+                </div>
+
+                <div class="col-2-large  col-2-xlarge">
+
+
+                    <h5><span class="numberCircle">5</span>Rad KW</h5>
+                    <h5>@ViewBag.Rad_KW</h5>
+
+                </div>
+
+                <div class="col-2-large  col-2-xlarge">
+
+
+                    <h5><span class="numberCircle">6</span>Rad A</h5>
+                    <h5>@ViewBag.Rad_A</h5>
+
+                </div>
+
+            </div>
+            <hr />
+
+            <section>
+                <div class="col-2-large  col-2-xlarge">
+
+
+                    <h5><span class="numberCircle">4</span>EnergoGlobal Power Calculator Vam preporučuje:</h5>
+
+
+
+                </div>
+
+                <div class="col-2-large  col-2-xlarge" style="margin-bottom:30px;">
+                    <img src="~/Images/energoglobal-logo.jpg" />
+                </div>
+
+            </section>
+
+
+
+            <div class="container">
+                <div class="frame">
+                    <div class="content">
+                        <h5>Preporučena snaga agregata:</h5>
+                        <h5 style="color:#DB1E26 !important;font-weight:bold;">Agregat KVA 775 </h5>
+                        <h5>Kontaktirajte nas:<a href="tel:+38121499315">Tel/Fax: +381 21 499 315</a></h5>
+                        <h5> <a href="https://energoglobal.com/">Website</a></h5>
+                    </div>
+                </div>
+            </div>
+
+            <section>
+
+                <ul class="actions fit small">
+                    <li><a href="/Projektant/Projekti/5" class=" button fit small">Nazad na sve projekte</a></li>
+                    <li><button id="create_pdf" class="button fit small">Export to pdf</button></li>
+
+                </ul>
+
+            </section>
+
+        </article>
+
+       
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var form = $('#pdf'),
+        cache_width = form.width(),
+        a4 = [595.28, 841.89]; // for a4 size paper width and height
+
+        $('#create_pdf').on('click', function () {
+            //$('html').scrollTop(0);zaExport
+            //$('zaExport').scrollTop(0);
+            // document.getElementById("zaExport").scrollTop(0);
+            $('html').scrollTop(0); //zaExport
+            createPDF();
+        });
+        function createPDF() {
+            getCanvas().then(function (canvas) {
+                var
+                 img = canvas.toDataURL("image/png"),
+                 doc = new jsPDF({
+                     unit: 'px',
+                     format: 'a3'
+                 });
+                doc.addImage(img, 'JPEG', 20, 20);
+                doc.save('Energo_Global_Power_Calculator.pdf');
+                form.width(cache_width);
+            });
+        }
+
+        function getCanvas() {
+            form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
+            return html2canvas(form, {
+                imageTimeout: 2000,
+                removeContainer: true
+            });
+        }
+
+    });
+
+
+</script>
+

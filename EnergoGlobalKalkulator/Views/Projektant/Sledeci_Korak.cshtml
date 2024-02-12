@@ -1,0 +1,111 @@
+﻿@model IEnumerable<EnergoGlobalKalkulator.Models.Korak>
+
+<h4>Projekat</h4>
+
+<div class="table-wrapper">
+    <table class="alt">
+        <thead>
+            <tr>
+                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Koraci</font></font></th>
+                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Oprema </font></font></th>
+                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tip potrošača</font></font></th>
+                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Broj faza</font></font></th>
+                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Količina</font></font></th>
+                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Snaga</font></font></th>
+
+                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Start P.F</font></font></th>
+                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">U radu P.F</font></font></th>
+                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Faktor</font></font></th>
+
+                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Start motora</font></font></th>
+                @*racunanje*@
+
+                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">Start A</font></font></th>
+                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">Start KVA</font></font></th>
+                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">Start KW</font></font></th>
+                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">Rad KVA</font></font></th>
+                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">Rad KW</font></font></th>
+                <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">Rad A</font></font></th>
+
+
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Korak1</font></font></td>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Oprema</font></font></td>
+
+                    @if (item.IdTipPotrosaca == 1)
+                    {
+                        <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Opšta potrošnja</font></font></td>
+                    }
+                    @if (item.IdTipPotrosaca == 2)
+                    {
+                        <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Motor</font></font></td>
+                    }
+
+                    @if (item.IdBrojFaza == 1)
+                    {
+                        <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1</font></font></td>
+                    }
+                    @if (item.IdBrojFaza == 2)
+                    {
+                        <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">3</font></font></td>
+                    }
+
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Kolicina</font></font></td>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Snaga</font></font></td>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Start_P_F</font></font></td>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.URadu_P_F</font></font></td>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Faktor</font></font></td>
+
+                    @if (item.IdTipPotrosaca == 1)
+                    {
+                        <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Samo za motor</font></font></td>
+                    }
+                    @if (item.IdTipPotrosaca == 2)
+                    {
+                        if (item.IdStartMotora == 1)
+                        {
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Direktan start</font></font></td>
+                        }
+
+                        if (item.IdStartMotora == 2)
+                        {
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Wye Delta</font></font></td>
+                        }
+
+
+                        if (item.IdStartMotora == 3)
+                        {
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Freq.Conv</font></font></td>
+                        }
+
+                    }
+
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">@item.Start_A</font></font></td>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">@item.Start_KVA</font></font></td>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">@item.Start_KW</font></font></td>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">@item.Rad_KVA</font></font></td>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">@item.Rad_KW</font></font></td>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #DB1E26;">@item.Rad_A</font></font></td>
+
+
+
+                </tr>
+            }
+
+
+
+
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+</div>
+

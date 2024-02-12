@@ -1,0 +1,238 @@
+﻿@model EnergoGlobalKalkulator.Models.Korak
+
+@{
+    ViewBag.Title = "Izmena_projekta";
+}
+
+
+
+
+<section class="wrapper style5">
+    <div class="inner">
+
+
+
+        @{Html.RenderAction("Sledeci_korak", "Projektant");}
+        <section>
+           
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "Neuspešna kreiranje projekta.Ispravite greške i probajte ponovo.")
+
+                @Html.HiddenFor(x => x.IdProjekat);
+                
+
+                
+
+                <div class="row gtr-uniform">
+                    <div class="col-4 col-12-xsmall">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Korak1)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Korak1)
+                            @Html.ValidationMessageFor(model => model.Korak1)
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row gtr-uniform">
+                    <div class="col-4 col-12-xsmall">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Oprema)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextAreaFor(model => model.Oprema)
+                            @Html.ValidationMessageFor(model => model.Oprema)
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row gtr-uniform">
+                    <div class="col-4 col-12-xsmall">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.TipPotrosaca)
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("IdTipPotrosaca", ViewBag.TipoviPotrosaca as SelectList, new { @onchange = "leaveChange()" })
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="row gtr-uniform">
+                    <div class="col-4 col-12-xsmall">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.IdBrojFaza)
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("IdBrojFaza", ViewBag.BrojFaza as SelectList)
+                            @Html.ValidationMessageFor(model => model.IdBrojFaza)
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <div class="row gtr-uniform">
+                    <div class="col-4 col-12-xsmall">
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Kolicina)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Kolicina)
+                            @Html.ValidationMessageFor(model => model.Kolicina)
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="row gtr-uniform">
+                    <div class="col-4 col-12-xsmall">
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Snaga)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Snaga)
+                            @Html.ValidationMessageFor(model => model.Snaga)
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row gtr-uniform">
+                    <div class="col-4 col-12-xsmall">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Start_P_F)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Start_P_F)
+                            @Html.ValidationMessageFor(model => model.Start_P_F)
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row gtr-uniform">
+                    <div class="col-4 col-12-xsmall">
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.URadu_P_F)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.URadu_P_F)
+                            @Html.ValidationMessageFor(model => model.URadu_P_F)
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row gtr-uniform">
+                    <div class="col-4 col-12-xsmall">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Faktor)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Faktor)
+                            @Html.ValidationMessageFor(model => model.Faktor)
+                        </div>
+
+                    </div>
+
+                </div>
+
+                                                  // Samo ako je motor
+
+
+                                                <div class="row gtr-uniform" style="visibility:hidden;">
+                                                    <div class="col-4 col-12-xsmall" id="sakrijMotor">
+                                                        <div class="editor-label">
+                                                            @Html.LabelFor(model => model.IdStartMotora)
+                                                        </div>
+                                                        <div class="editor-field">
+                                                            @Html.DropDownList("IdStartMotora", ViewBag.StartMotora as SelectList)
+                                                            @Html.ValidationMessageFor(model => model.IdStartMotora)
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </div>
+
+
+
+
+                                                  // Samo ako je motor
+
+
+
+                                                <section>
+
+                                                    <ul class="actions fit small">
+                                                        <li><input type="submit" class="button primary fit small" value="Izmeni korak" /></li>
+                                                        <li><a href="/Projektant/Projekat/@Model.IdProjekat" class="button fit small">Nazad na projekat</a></li>
+
+
+                                                    </ul>
+
+                                                </section>
+
+
+                                                <div class="row gtr-uniform">
+
+
+
+                                                </div>
+
+
+
+
+
+            }
+
+        </section>
+
+    </div>
+
+</section>
+
+
+<script type="text/javascript">
+
+
+
+
+
+
+    function leaveChange() {
+
+        if (document.getElementById("IdTipPotrosaca").value == "2") {
+            document.getElementById("IdStartMotora").style.visibility = "visible";
+            document.getElementById("sakrijMotor").style.visibility = "Visible";
+        }
+
+
+        if (document.getElementById("IdTipPotrosaca").value == "1") {
+            document.getElementById("sakrijMotor").style.visibility = "hidden";
+            document.getElementById("IdStartMotora").style.visibility = "hidden";
+
+        }
+
+    }
+
+</script>
+

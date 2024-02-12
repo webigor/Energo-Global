@@ -1,0 +1,124 @@
+﻿@model EnergoGlobalKalkulator.Models.Projektant
+
+@{
+    ViewBag.Title = "Profil";
+}
+
+
+<section class="wrapper style5">
+    <div class="inner">
+        <section>
+            <h4><i id="profil" class="fa fa-user" aria-hidden="true"></i>Vaš Profil:</h4>
+
+
+                <div class="row gtr-uniform">
+                    <div class="col-4 col-12-xsmall">
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Ime)
+                        </div>
+                        <div class="editor-field">
+                           @Model.Ime
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row gtr-uniform">
+
+                    <div class="col-4 col-12-xsmall">
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Prezime)
+                        </div>
+                        <div class="editor-field">
+                          @Model.Prezime
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="row gtr-uniform">
+
+                    <div class="col-4 col-12-xsmall">
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Email)
+
+                        </div>
+                        <div class="editor-field">
+                            @Model.Email
+                        </div>
+                    </div>
+
+
+                </div>
+
+               
+
+               
+               
+
+                <div class="row gtr-uniform">
+
+                    <div class="col-4 col-12-xsmall">
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Kompanija)
+
+                        </div>
+                        <div class="editor-field">
+                           @Model.Kompanija
+                        </div>
+                    </div>
+
+
+                </div>
+             
+                <div class="row gtr-uniform">
+
+                    <div class="col-4 col-12-xsmall">
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Broj_telefona)
+
+                        </div>
+                        <div class="editor-field">
+                          @Model.Broj_telefona
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row gtr-uniform">
+
+
+                    <section>
+
+                        <ul class="actions fit small">
+                            <li><a href="/Projektant/Kreiraj_Projekat/@Model.Id" class="button primary fit small">Kreiraj projekat</a></li>
+
+                            <li><a href="/Projektant/Projekti/@Model.Id "class="button fit small">Vidi sve projekte</a></li>
+
+                        </ul>
+
+                    </section>
+
+
+                </div>
+
+
+           
+
+        </section>
+
+    </div>
+
+</section>
+
+
+
